@@ -20,7 +20,7 @@ model User {
   role         Roles
   password     String
   avatar       String
-  createdAt    DateTime
+  createdAt    DateTime 
   Likes        Likes[]
   Contact      Contact[]
   Accomadation Accomadation[]
