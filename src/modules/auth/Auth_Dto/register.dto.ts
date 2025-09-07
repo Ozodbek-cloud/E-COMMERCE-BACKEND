@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsEmail, IsNotEmpty, IsString } from "class-validator";
+import { Roles } from "@prisma/client";
+import { IsEmail, IsEnum, IsNotEmpty, IsString } from "class-validator";
 
 export class RegisterDto {
   @ApiProperty({
@@ -8,7 +9,7 @@ export class RegisterDto {
   })
   @IsString()
   @IsNotEmpty()
-  firstname: string;
+  firstName: string;
 
   @ApiProperty({
     example: 'golden_user123',
@@ -16,7 +17,7 @@ export class RegisterDto {
   })
   @IsString()
   @IsNotEmpty()
-  lastname: string;
+  lastName: string;
 
   @ApiProperty({
     example: 'example.png',
@@ -26,6 +27,11 @@ export class RegisterDto {
   @IsNotEmpty()
   avatar: string;
 
+
+  @ApiProperty({ example: Roles.User, enum: Roles, description: "Foydalanuvchi roli" })
+  @IsEnum(Roles)
+  @IsNotEmpty()
+  role: Roles;
 
   @ApiProperty({
     example: 'user@example.com',

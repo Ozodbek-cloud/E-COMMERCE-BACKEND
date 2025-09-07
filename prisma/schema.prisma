@@ -14,13 +14,13 @@ datasource db {
 
 model User {
   id           String         @id @default(uuid())
-  firstname    String
+  firstName    String
   lastName     String
   email        String
   role         Roles
   password     String
   avatar       String
-  createdAt    DateTime 
+  createdAt DateTime @default(now())
   Likes        Likes[]
   Contact      Contact[]
   Accomadation Accomadation[]

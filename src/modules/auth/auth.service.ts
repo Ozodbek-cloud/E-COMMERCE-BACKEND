@@ -33,50 +33,42 @@ export class AuthService {
   }
 
   async register(payload: Required<RegisterDto>) {
-    let username = await this.prismaService.user.findFirst({ where: { firstname: payload.firstname } })
-    if (username) throw new ConflictException(`${payload.firstname} is already registered!`)
-    let email = await this.prismaService.user.findFirst({ where: { email: payload.email } })
-    if (email) throw new ConflictException(`${payload.email} is already exists!`)
+    try {
+      let username = await this.prismaService.user.findFirst({ where: { firstName: payload.firstName } })
+      if (username) throw new ConflictException(`${payload.firstName} is already registered!`)
+      let email = await this.prismaService.user.findFirst({ where: { email: payload.email } })
+      if (email) throw new ConflictException(`${payload.email} is already exists!`)
 
-    let code = Math.floor(100000 + Math.random() * 900000);
-    await this.mailerService.sendMail(payload.email, 'Verification', code)
-
-    await this.redisService.set(`register:${payload.email}`, JSON.stringify({ ...payload, code }), 600)
-
-    return {
-      message: `Verification Successfully send to ${payload.email}`
+      let hashed = await bcrypt.hash(payload.password, 10)
+      let user = await this.prismaService.user.create({
+        data: { ...payload, password: hashed }
+      })
+      return {
+        message: `Successfully Registered!`,
+      }
+    } catch (error) {
+      throw Error(error.message)
     }
   }
 
-  async verify(payload: Required<VerificationDto>) {
-    let stored = await this.redisService.get(`register:${payload.email}`)
-    if (!stored) throw new BadRequestException("Otp expire or not Found")
 
-    let userData = JSON.parse(stored)
-    if (userData.code != payload.code) throw new BadRequestException("Otp invalide")
-
-    await this.redisService.del(`register:${payload.email}`)
-    delete userData.code
-
-    let hash = await bcrypt.hash(userData.password, 10)
-    let user = await this.prismaService.user.create({ ...userData, password: hash })
-
-    let token = await this.generateToken({ id: user.id, role: user.role })
-    return { message: "SuccessFully Registered" }
-  }
 
   async login(payload: Required<LoginDto>) {
-    let exists = await this.prismaService.user.findFirst({
-      where: {
-        email: payload.email
-      }
-    })
-    if (!exists) throw new NotFoundException(`this ${payload.email} is not match`)
-    let compare = await bcrypt.compare(payload.password, exists.password)
-    if (!compare) throw new NotFoundException(`this ${payload.password} is not match`)
+    try {
+      let exists = await this.prismaService.user.findFirst({
+        where: {
+          email: payload.email
+        }
+      })
+      if (!exists) throw new NotFoundException(`this ${payload.email} is not match`)
+      let compare = await bcrypt.compare(payload.password, exists.password)
+      if (!compare) throw new NotFoundException(`this ${payload.password} is not match`)
 
-    let token = await this.generateToken({ id: exists.id, role: exists.role })
-    return { success: true, data: exists, token: token }
+      let token = await this.generateToken({ id: exists.id, role: exists.role })
+      return { success: true, data: exists, token: token }
+    } catch (error) {
+      throw Error(error.message)
+    }
   }
 
 
