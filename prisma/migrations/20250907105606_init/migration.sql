@@ -4,13 +4,13 @@ CREATE TYPE "public"."Roles" AS ENUM ('User', 'Customer');
 -- CreateTable
 CREATE TABLE "public"."User" (
     "id" TEXT NOT NULL,
-    "firstname" TEXT NOT NULL,
+    "firstName" TEXT NOT NULL,
     "lastName" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "role" "public"."Roles" NOT NULL,
     "password" TEXT NOT NULL,
-    "avatar" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL,
+    "avatar" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );

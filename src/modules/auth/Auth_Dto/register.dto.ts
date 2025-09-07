@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Roles } from "@prisma/client";
-import { IsEmail, IsEnum, IsNotEmpty, IsString } from "class-validator";
+import { IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString } from "class-validator";
 
 export class RegisterDto {
   @ApiProperty({
@@ -22,9 +22,9 @@ export class RegisterDto {
   @ApiProperty({
     example: 'example.png',
     description: 'Foydalanuvchi Avatari',
-  })
-  @IsString()
-  @IsNotEmpty()
+    required: false
+  },)
+  @IsOptional()
   avatar: string;
 
 

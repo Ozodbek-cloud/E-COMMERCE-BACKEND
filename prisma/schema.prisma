@@ -19,7 +19,7 @@ model User {
   email        String
   role         Roles
   password     String
-  avatar       String
+  avatar       String?
   createdAt DateTime @default(now())
   Likes        Likes[]
   Contact      Contact[]
