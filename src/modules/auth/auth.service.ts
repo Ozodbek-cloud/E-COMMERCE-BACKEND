@@ -41,7 +41,7 @@ export class AuthService {
       console.log("Register payload:", payload);
       let hashed = await bcrypt.hash(payload.password, 10)
       let user = await this.prismaService.user.create({
-        data: { ...payload, password: hashed }
+        data: { ...payload, password: hashed, avatar:  "default-avatar.png" }
       })
 
 
