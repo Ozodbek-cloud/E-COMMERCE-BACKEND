@@ -74,6 +74,52 @@ model Accomadation {
   Contact        Contact[]
   Likes          Likes[]
   Rating         Rating[]
+
+  propertyId     String? @unique
+  parentProperty String?
+  status         String?
+
+  label         String?
+  material      String?
+  rooms         Int?
+  beds          Int?
+  baths         Int?
+  garages       Int?
+  homeAreaSqft  Float?
+  lotDimensions String?
+  lotAreaSqft   Float?
+
+  pricePrefix String?
+  priceSuffix String?
+  priceCustom String?
+
+  region          String?
+  friendlyAddress String?
+
+  
+  featuredImage String?
+  gallery       String[] 
+  attachment    String?
+
+  videoLink   String?
+  virtualTour String?
+
+ 
+  barbeque      Boolean @default(false)
+  microwave     Boolean @default(false)
+  fireplace     Boolean @default(false)
+  parking       Boolean @default(false)
+  dryer         Boolean @default(false)
+  outdoorShower Boolean @default(false)
+  petsAllowed   Boolean @default(false)
+  doorman       Boolean @default(false)
+
+
+  energyClass String?
+  energyIndex Float?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Rating {
