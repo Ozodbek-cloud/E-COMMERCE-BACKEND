@@ -4,9 +4,12 @@ import { MailModule } from './common/mail/mail.module';
 import { PrismaModule } from './core/prisma/prisma.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
+import { Accomadation } from './modules/accomadation/accomadation.module';
+
 
 
 @Module({
-  imports: [RedisModule, MailModule, PrismaModule, AuthModule, UserModule],
+  imports: [RedisModule, MailModule, PrismaModule, AuthModule, UserModule, Accomadation],
+
 })
 export class AppModule {}

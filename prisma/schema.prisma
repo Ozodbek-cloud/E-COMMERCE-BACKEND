@@ -96,15 +96,13 @@ model Accomadation {
   region          String?
   friendlyAddress String?
 
-  
   featuredImage String?
-  gallery       String[] 
+  gallery       String[]
   attachment    String?
 
   videoLink   String?
   virtualTour String?
 
- 
   barbeque      Boolean @default(false)
   microwave     Boolean @default(false)
   fireplace     Boolean @default(false)
@@ -113,7 +111,6 @@ model Accomadation {
   outdoorShower Boolean @default(false)
   petsAllowed   Boolean @default(false)
   doorman       Boolean @default(false)
-
 
   energyClass String?
   energyIndex Float?
