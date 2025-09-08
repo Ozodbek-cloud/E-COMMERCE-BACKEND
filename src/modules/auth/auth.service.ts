@@ -38,18 +38,29 @@ export class AuthService {
       if (username) throw new ConflictException(`${payload.firstName} is already registered!`)
       let email = await this.prismaService.user.findFirst({ where: { email: payload.email } })
       if (email) throw new ConflictException(`${payload.email} is already exists!`)
-
+      console.log("Register payload:", payload);
       let hashed = await bcrypt.hash(payload.password, 10)
       let user = await this.prismaService.user.create({
         data: { ...payload, password: hashed }
       })
+
+
       return {
         message: `Successfully Registered!`,
       }
     } catch (error) {
-      throw Error(error.message)
+      if (error instanceof BadRequestException ||
+        error instanceof ConflictException ||
+        error instanceof NotFoundException ||
+        error instanceof UnauthorizedException) {
+        throw error;
+      }
+      console.log(error.message)
+
+      throw new BadRequestException(error.message);
     }
   }
+
 
 
 
@@ -67,13 +78,21 @@ export class AuthService {
       let token = await this.generateToken({ id: exists.id, role: exists.role })
       return { success: true, data: exists, token: token }
     } catch (error) {
-      throw Error(error.message)
-    }
-  }
+      if (error instanceof BadRequestException ||
+        error instanceof ConflictException ||
+        error instanceof NotFoundException ||
+        error instanceof UnauthorizedException) {
+        throw error;
+      }
 
+      throw new BadRequestException(error.message);
+    
+  }
+}
 
 
 }
+
 
 
 
