@@ -23,7 +23,7 @@ export class RegisterDto {
   @IsEnum(Roles)
   @IsNotEmpty()
   role: Roles;
-
+  
   @ApiProperty({
     example: 'user@example.com',
     description: 'Foydalanuvchi email manzili',
