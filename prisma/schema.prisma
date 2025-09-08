@@ -50,73 +50,64 @@ model Contact {
 }
 
 model Accomadation {
-  id             String    @id @default(uuid())
-  img            Json
-  isActive       Boolean
-  listing_type   Boolean
-  title          String
-  address        String
-  features       Float
-  price          Float
-  dissccount     Float
-  build_year     Int
-  description    String
-  documents      Json
-  map_url        String
-  latitude       Float
-  longitude      Float
-  country        String
-  extra_features Int
-  userId         String
-  categoryId     Int
-  categories     Category  @relation(fields: [categoryId], references: [id])
-  user           User      @relation(fields: [userId], references: [id])
-  Contact        Contact[]
-  Likes          Likes[]
-  Rating         Rating[]
-
-  propertyId     String? @unique
-  parentProperty String?
-  status         String?
-
-  label         String?
-  material      String?
-  rooms         Int?
-  beds          Int?
-  baths         Int?
-  garages       Int?
-  homeAreaSqft  Float?
-  lotDimensions String?
-  lotAreaSqft   Float?
-
-  pricePrefix String?
-  priceSuffix String?
-  priceCustom String?
-
+  id              String    @id @default(uuid())
+  img             String? 
+  isActive        Boolean
+  listing_type    Boolean
+  title           String
+  address         String
+  features        Int
+  price           Int
+  dissccount      Int
+  build_year      Int
+  description     String
+  documents       Json?
+  map_url         String
+  latitude        Float
+  longitude       Float
+  country         String
+  extra_features  Int
+  userId          String
+  categoryId      Int
+  propertyId      String?
+  parentProperty  String?
+  status          String?
+  label           String?
+  material        String?
+  rooms           Int?
+  beds            Int?
+  baths           Int?
+  garages         Int?
+  homeAreaSqft    Int?
+  lotDimensions   String?
+  lotAreaSqft     Int?
+  pricePrefix     String?
+  priceSuffix     String?
+  priceCustom     String?
   region          String?
   friendlyAddress String?
-
-  featuredImage String?
-  gallery       String[]
-  attachment    String?
-
-  videoLink   String?
-  virtualTour String?
-
-  barbeque      Boolean @default(false)
-  microwave     Boolean @default(false)
-  fireplace     Boolean @default(false)
-  parking       Boolean @default(false)
-  dryer         Boolean @default(false)
-  outdoorShower Boolean @default(false)
-  petsAllowed   Boolean @default(false)
-  doorman       Boolean @default(false)
-
-  energyClass String?
-  energyIndex Float?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  featuredImage   String?
+  gallery         String[]
+  attachment      String?
+  videoLink       String?
+  virtualTour     String?
+  barbeque        Boolean?
+  microwave       Boolean?
+  fireplace       Boolean?
+  parking         Boolean?
+  dryer           Boolean?
+  outdoorShower   Boolean?
+  petsAllowed     Boolean?
+  doorman         Boolean?
+  energyClass     String?
+  energyIndex     Int?
+  createdAt       DateTime?
+  updatedAt       DateTime?
+  User            User      @relation(fields: [userId], references: [id])
+  Likes           Likes[]
+  Contact         Contact[]
+  Rating          Rating[]
+  Category        Category  @relation(fields: [categoryId], references: [id])
 }
 
 model Rating {
