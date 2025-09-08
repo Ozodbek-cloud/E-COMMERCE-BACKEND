@@ -19,15 +19,6 @@ export class RegisterDto {
   @IsNotEmpty()
   lastName: string;
 
-  @ApiProperty({
-    example: 'example.png',
-    description: 'Foydalanuvchi Avatari',
-    required: false
-  },)
-  @IsOptional()
-  avatar: string;
-
-
   @ApiProperty({ example: Roles.User, enum: Roles, description: "Foydalanuvchi roli" })
   @IsEnum(Roles)
   @IsNotEmpty()
