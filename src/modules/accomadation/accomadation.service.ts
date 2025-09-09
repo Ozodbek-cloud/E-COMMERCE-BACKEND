@@ -11,10 +11,7 @@ export class AccomadationService {
             
             let data = await this.prismaService.accomadation.create({
 
-                data: {
-                    ...payload,
-                    featured:payload.featured
-                }
+                data:payload
             })
             return {
                 success: true,
