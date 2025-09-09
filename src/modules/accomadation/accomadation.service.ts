@@ -7,12 +7,23 @@ export class AccomadationService {
     constructor(private prismaService: PrismaService) { }
 
     async create(payload: Required<AccommodationDto>) {
-        try { 
-            
-            let data = await this.prismaService.accomadation.create({
+        try {
 
-                data:payload
-            })
+            const data = await this.prismaService.accomadation.create({
+                data: {
+                    title: payload.title,
+                    location: payload.location,
+                    featured: payload.featured,
+                    listing_type: payload.listing_type,
+                    features: payload.features,
+                    discount: payload.discount,
+                    total_price: payload.total_price,
+                    userId: payload.userId,
+                    categoryId: payload.categoryId,
+                    house_img: payload.house_img, 
+                },
+            });
+
             return {
                 success: true,
                 data: data,
