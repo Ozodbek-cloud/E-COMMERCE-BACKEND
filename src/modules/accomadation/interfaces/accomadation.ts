@@ -21,7 +21,7 @@ export class AccommodationDto {
   @IsBoolean()
   @Transform(({ value }) => value === 'true' || value === true)
   featured: boolean;
-  
+
   @IsEnum(Listing_Type)
   listing_type: Listing_Type;
 
