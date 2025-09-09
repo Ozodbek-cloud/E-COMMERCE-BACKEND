@@ -9,13 +9,24 @@ export class AccomadationService {
     async create(payload: Required<AccommodationDto>) {
         try {
 
-            const data = await this.prismaService.accomadation.create({
-                data:payload
+            let data1 =  await this.prismaService.accomadation.create({
+                data: {
+                    house_img: payload.house_img as any,
+                    featured: payload.featured,
+                    listing_type: payload.listing_type,
+                    title: payload.title,
+                    location: payload.location,
+                    features: payload.features,
+                    discount: payload.discount,
+                    total_price: payload.total_price,
+                    userId: payload.userId,
+                    categoryId: payload.categoryId,
+                },
             });
 
             return {
                 success: true,
-                data: data,
+                data: data1,
                 message: "Successfully created!"
             }
         } catch (error) {
