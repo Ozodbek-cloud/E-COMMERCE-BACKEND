@@ -1,6 +1,9 @@
 -- CreateEnum
 CREATE TYPE "public"."Roles" AS ENUM ('User', 'Customer');
 
+-- CreateEnum
+CREATE TYPE "public"."Listing_Type" AS ENUM ('ForSale', 'ForRent');
+
 -- CreateTable
 CREATE TABLE "public"."User" (
     "id" TEXT NOT NULL,
@@ -9,7 +12,7 @@ CREATE TABLE "public"."User" (
     "email" TEXT NOT NULL,
     "role" "public"."Roles" NOT NULL,
     "password" TEXT NOT NULL,
-    "avatar" TEXT,
+    "avatar" TEXT DEFAULT 'default-avatar.png',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
@@ -42,24 +45,16 @@ CREATE TABLE "public"."Contact" (
 -- CreateTable
 CREATE TABLE "public"."Accomadation" (
     "id" TEXT NOT NULL,
-    "img" JSONB NOT NULL,
-    "isActive" BOOLEAN NOT NULL,
-    "listing_type" BOOLEAN NOT NULL,
+    "house_img" TEXT,
+    "featured" BOOLEAN NOT NULL,
+    "listing_type" "public"."Listing_Type" NOT NULL,
     "title" TEXT NOT NULL,
-    "address" TEXT NOT NULL,
-    "features" DOUBLE PRECISION NOT NULL,
-    "price" DOUBLE PRECISION NOT NULL,
-    "dissccount" DOUBLE PRECISION NOT NULL,
-    "build_year" INTEGER NOT NULL,
-    "description" TEXT NOT NULL,
-    "documents" JSONB NOT NULL,
-    "map_url" TEXT NOT NULL,
-    "latitude" DOUBLE PRECISION NOT NULL,
-    "longitude" DOUBLE PRECISION NOT NULL,
-    "country" TEXT NOT NULL,
-    "extra_features" INTEGER NOT NULL,
+    "location" TEXT NOT NULL,
+    "features" JSONB NOT NULL,
+    "discount" DOUBLE PRECISION NOT NULL,
+    "total_price" DOUBLE PRECISION NOT NULL,
     "userId" TEXT NOT NULL,
-    "categoryId" INTEGER NOT NULL,
+    "categoryId" INTEGER,
 
     CONSTRAINT "Accomadation_pkey" PRIMARY KEY ("id")
 );
@@ -99,10 +94,10 @@ ALTER TABLE "public"."Contact" ADD CONSTRAINT "Contact_userId_fkey" FOREIGN KEY 
 ALTER TABLE "public"."Contact" ADD CONSTRAINT "Contact_accomadtionId_fkey" FOREIGN KEY ("accomadtionId") REFERENCES "public"."Accomadation"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "public"."Accomadation" ADD CONSTRAINT "Accomadation_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "public"."Category"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "public"."Accomadation" ADD CONSTRAINT "Accomadation_userId_fkey" FOREIGN KEY ("userId") REFERENCES "public"."User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "public"."Accomadation" ADD CONSTRAINT "Accomadation_userId_fkey" FOREIGN KEY ("userId") REFERENCES "public"."User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "public"."Accomadation" ADD CONSTRAINT "Accomadation_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "public"."Category"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "public"."Rating" ADD CONSTRAINT "Rating_userId_fkey" FOREIGN KEY ("userId") REFERENCES "public"."User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

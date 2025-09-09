@@ -12,6 +12,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Listing_Type {
+  ForSale
+  ForRent
+}
+
 model User {
   id           String         @id @default(uuid())
   firstName    String
@@ -50,64 +55,22 @@ model Contact {
 }
 
 model Accomadation {
-  id              String    @id @default(uuid())
-  img             String? 
-  isActive        Boolean
-  listing_type    Boolean
-  title           String
-  address         String
-  features        Int
-  price           Int
-  dissccount      Int
-  build_year      Int
-  description     String
-  documents       Json?
-  map_url         String
-  latitude        Float
-  longitude       Float
-  country         String
-  extra_features  Int
-  userId          String
-  categoryId      Int
-  propertyId      String?
-  parentProperty  String?
-  status          String?
-  label           String?
-  material        String?
-  rooms           Int?
-  beds            Int?
-  baths           Int?
-  garages         Int?
-  homeAreaSqft    Int?
-  lotDimensions   String?
-  lotAreaSqft     Int?
-  pricePrefix     String?
-  priceSuffix     String?
-  priceCustom     String?
-  region          String?
-  friendlyAddress String?
-  featuredImage   String?
-  gallery         String[]
-  attachment      String?
-  videoLink       String?
-  virtualTour     String?
-  barbeque        Boolean?
-  microwave       Boolean?
-  fireplace       Boolean?
-  parking         Boolean?
-  dryer           Boolean?
-  outdoorShower   Boolean?
-  petsAllowed     Boolean?
-  doorman         Boolean?
-  energyClass     String?
-  energyIndex     Int?
-  createdAt       DateTime?
-  updatedAt       DateTime?
-  User            User      @relation(fields: [userId], references: [id])
-  Likes           Likes[]
-  Contact         Contact[]
-  Rating          Rating[]
-  Category        Category  @relation(fields: [categoryId], references: [id])
+  id           String       @id @default(uuid())
+  house_img    Json?
+  featured     Boolean
+  listing_type Listing_Type
+  title        String
+  location     String
+  features     Json
+  discount     Float
+  total_price  Float
+  userId       String
+  User         User         @relation(fields: [userId], references: [id])
+  Likes        Likes[]
+  Contact      Contact[]
+  Rating       Rating[]
+  Category     Category   @relation(fields: [categoryId], references: [id])
+  categoryId   Int
 }
 
 model Rating {
