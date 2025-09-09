@@ -10,6 +10,7 @@ import {
 import { Transform } from 'class-transformer';
 import { Listing_Type } from '@prisma/client';
 
+
 export class AccommodationDto {
   @IsOptional()
   @IsUUID()
