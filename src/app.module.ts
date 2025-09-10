@@ -5,11 +5,12 @@ import { PrismaModule } from './core/prisma/prisma.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
 import { CategoryModule } from './modules/category/category.module';
+import { AccommadationModule } from './modules/accommadation/accommadation.module';
 
 
 
 @Module({
-  imports: [RedisModule, MailModule, PrismaModule, AuthModule, UserModule, CategoryModule],
+  imports: [RedisModule, MailModule, PrismaModule, AuthModule, UserModule, CategoryModule, AccommadationModule],
 
 })
 export class AppModule {}

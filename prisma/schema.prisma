@@ -2,93 +2,105 @@ generator client {
   provider = "prisma-client-js"
 }
 
-enum Roles {
-  User
-  Customer
-}
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-enum Listing_Type {
-  ForSale
-  ForRent
+enum Roles {
+  User
+  Customer
+}
+
+enum ListingType {
+  RENT
+  SALE
+  EXCHANGE
 }
 
 model User {
-  id           String         @id @default(uuid())
+  id           String          @id @default(uuid())
   firstName    String
   lastName     String
-  email        String
+  email        String          @unique
   role         Roles
   password     String
-  avatar       String?        @default("default-avatar.png")
-  createdAt    DateTime       @default(now())
+  avatar       String?         @default("default-avatar.png")
+  createdAt    DateTime        @default(now())
+
   Likes        Likes[]
-  Contact      Contact[]
-  Accomadation Accomadation[]
-  Rating       Rating[]
+  Contacts     Contact[]
+  Accommodations Accommodation[]
+  Ratings      Rating[]
 }
 
 model Likes {
-  id            Int          @id @default(autoincrement())
-  like          Boolean
-  userId        String
-  accomadtionId String
-  user          User         @relation(fields: [userId], references: [id])
-  accomadation  Accomadation @relation(fields: [accomadtionId], references: [id])
+  id             Int           @id @default(autoincrement())
+  like           Boolean
+  userId         String
+  accommodationId String
+  user           User          @relation(fields: [userId], references: [id])
+  accommodation  Accommodation @relation(fields: [accommodationId], references: [id])
 }
 
 model Contact {
-  id            String       @id @default(uuid())
-  date          DateTime
-  time          String
-  phone         String
-  email         String
-  message       String
-  userId        String
-  accomadtionId String
-  user          User         @relation(fields: [userId], references: [id])
-  accomadation  Accomadation @relation(fields: [accomadtionId], references: [id])
+  id              String        @id @default(uuid())
+  date            DateTime
+  time            String
+  phone           String
+  email           String
+  message         String
+  userId          String
+  accommodationId String
+  user            User          @relation(fields: [userId], references: [id])
+  accommodation   Accommodation @relation(fields: [accommodationId], references: [id])
 }
 
-model Accomadation {
-  id           String       @id @default(uuid())
-  house_img    Json?
-  featured     Boolean
-  listing_type Listing_Type
-  title        String
-  location     String
-  features     Json
-  discount     Float
-  total_price  Float
-  userId       String
-  User         User         @relation(fields: [userId], references: [id])
-  Likes        Likes[]
-  Contact      Contact[]
-  Rating       Rating[]
-  Category     Category   @relation(fields: [categoryId], references: [id])
-  categoryId   Int
+model Accommodation {
+  id             String      @id @default(uuid())
+  img            Json?
+  isActive       Boolean     @default(true)
+  listing_type   ListingType
+  title          String
+  address        String?
+  features       Json?
+  price          Float
+  discount       Float?
+  build_year     BigInt?
+  description    String?
+  documents      Json?
+  map_url        String?
+  latitude       Float?
+  longitude      Float?
+  country        String?
+  extra_features BigInt?
+  user_id        String
+  category_id    Int?
+
+  user     User?     @relation(fields: [user_id], references: [id])
+  category Category? @relation(fields: [category_id], references: [id])
+
+  Likes    Likes[]
+  Contacts Contact[]
+  Ratings  Rating[]
 }
 
 model Rating {
-  id            Int          @id @default(autoincrement())
-  clean         Float
-  location      Float
-  communicate   Float
-  userId        String
-  accomadtionId String
-  user          User         @relation(fields: [userId], references: [id])
-  accomadation  Accomadation @relation(fields: [accomadtionId], references: [id])
+  id              Int           @id @default(autoincrement())
+  clean           Float
+  location        Float
+  communicate     Float
+  userId          String
+  accommodationId String
+  user            User          @relation(fields: [userId], references: [id])
+  accommodation   Accommodation @relation(fields: [accommodationId], references: [id])
 }
 
 model Category {
-  id       Int    @id @default(autoincrement())
-  name     String
-  img      String
-  icon_img String
+  id             Int             @id @default(autoincrement())
+  name           String
+  img            String
+  icon_img       String
 
-  Accomadation Accomadation[]
+  Accommodations Accommodation[]
 }
