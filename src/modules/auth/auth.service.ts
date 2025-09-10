@@ -1,13 +1,13 @@
 import { BadRequestException, ConflictException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { MailService } from 'src/common/mail/mail.service';
-import { RedisService } from 'src/common/redis/redis.service';
+import { MailService } from '../../common/mail/mail.service';
+import { RedisService } from '../../common/redis/redis.service';
 import { JwtAccessToken, JWtRefreshToken } from 'src/common/utils/jwt-utils';
 import * as bcrypt from "bcrypt"
 import { RegisterDto } from './Auth_Dto/register.dto';
 import { VerificationDto } from './Auth_Dto/verify.dto';
 import { LoginDto } from './Auth_Dto/loginDto';
-import { PrismaService } from 'src/core/prisma/prisma.service';
+import { PrismaService } from '../../core/prisma/prisma.service';
 interface JwtPayload {
   id: string,
   role: string
