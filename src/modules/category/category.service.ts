@@ -15,6 +15,5 @@ export class CategoryService {
         } catch (error) {
 
         }
-
     }
 }
