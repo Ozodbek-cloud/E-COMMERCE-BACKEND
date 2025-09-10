@@ -2,7 +2,7 @@ import { BadRequestException, ConflictException, Injectable, NotFoundException, 
 import { JwtService } from '@nestjs/jwt';
 import { MailService } from '../../common/mail/mail.service';
 import { RedisService } from '../../common/redis/redis.service';
-import { JwtAccessToken, JWtRefreshToken } from 'src/common/utils/jwt-utils';
+import { JwtAccessToken, JWtRefreshToken } from '../../common/utils/jwt-utils';
 import * as bcrypt from "bcrypt"
 import { RegisterDto } from './Auth_Dto/register.dto';
 import { VerificationDto } from './Auth_Dto/verify.dto';
