@@ -4,9 +4,9 @@ import { MailService } from '../../common/mail/mail.service';
 import { RedisService } from '../../common/redis/redis.service';
 import { JwtAccessToken, JWtRefreshToken } from '../../common/utils/jwt-utils';
 import * as bcrypt from "bcrypt"
-import { RegisterDto } from './Auth_Dto/register.dto';
-import { VerificationDto } from './Auth_Dto/verify.dto';
-import { LoginDto } from './Auth_Dto/loginDto';
+import { RegisterDto } from './interfaces/register.dto';
+import { VerificationDto } from './interfaces/verify.dto';
+import { LoginDto } from './interfaces/loginDto';
 import { PrismaService } from '../../core/prisma/prisma.service';
 interface JwtPayload {
   id: string,

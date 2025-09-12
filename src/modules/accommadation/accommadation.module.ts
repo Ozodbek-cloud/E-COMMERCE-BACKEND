@@ -5,7 +5,7 @@ import { PrismaModule } from '../../core/prisma/prisma.module';
 import { PrismaService } from '../../core/prisma/prisma.service';
 
 @Module({
-  imports: [PrismaModule],
+ 
   controllers: [AccommadationController],
   providers: [AccommadationService, PrismaService],
 })

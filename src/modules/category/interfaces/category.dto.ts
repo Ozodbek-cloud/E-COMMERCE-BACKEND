@@ -1,16 +1,28 @@
-import { IsInt, IsString, IsOptional, IsUrl } from 'class-validator';
+import { IsInt, IsString, IsOptional } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CategoryDTO {
-  @IsInt()
-  id: number;
 
+
+  @ApiProperty({
+    example: 'Uy-joy',
+    description: 'Kategoriya nomi',
+  })
   @IsString()
   name: string;
 
+  @ApiPropertyOptional({
+    example: 'https://example.com/images/house.png',
+    description: 'Kategoriya rasmi (ixtiyoriy)',
+  })
   @IsOptional()
   @IsString()
   img?: string;
 
+  @ApiPropertyOptional({
+    example: 'https://example.com/icons/house.svg',
+    description: 'Kategoriya ikonkasi (ixtiyoriy)',
+  })
   @IsOptional()
   @IsString()
   icon_img?: string;

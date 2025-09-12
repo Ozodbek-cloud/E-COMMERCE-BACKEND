@@ -45,7 +45,7 @@ model Likes {
 
 model Contact {
   id              String        @id @default(uuid())
-  date            DateTime
+  date            DateTime      @default(now())
   time            String
   phone           String
   email           String
@@ -67,19 +67,19 @@ model Accommodation {
   features       Json?
   price          Float
   discount       Float?
-  build_year     BigInt?
+  build_year     Int?
   description    String?
   documents      Json?
   map_url        String?
   latitude       Float?
   longitude      Float?
   country        String?
-  extra_features BigInt?
+  extra_features Int?
   user_id        String
-  category_id    Int?
+  category_id    Int
 
-  user     User?     @relation(fields: [user_id], references: [id])
-  category Category? @relation(fields: [category_id], references: [id])
+  user     User     @relation(fields: [user_id], references: [id])
+  category Category @relation(fields: [category_id], references: [id])
 
   Likes    Likes[]
   Contacts Contact[]
@@ -100,8 +100,8 @@ model Rating {
 model Category {
   id       Int    @id @default(autoincrement())
   name     String
-  img      String
-  icon_img String
+  img      String?
+  icon_img String?
 
   Accommodations Accommodation[]
 }

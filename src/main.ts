@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+import { setupSwagger } from './common/base/swagger.set-up';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -16,7 +17,7 @@ async function bootstrap() {
     origin: ["http://localhost:5173", "https://e-commerce.nasriddinov.uz"],
     credentials: true,
   });
-
+  await setupSwagger(app)
   await app.listen(process.env.PORT ?? 3000, () => console.log(`running on - 6447 port`));
 }
 bootstrap();
