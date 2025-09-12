@@ -19,28 +19,28 @@ enum ListingType {
 }
 
 model User {
-  id           String          @id @default(uuid())
-  firstName    String
-  lastName     String
-  email        String          @unique
-  role         Roles
-  password     String
-  avatar       String?         @default("default-avatar.png")
-  createdAt    DateTime        @default(now())
+  id        String   @id @default(uuid())
+  firstName String
+  lastName  String
+  email     String   @unique
+  role      Roles
+  password  String
+  avatar    String?  @default("default-avatar.png")
+  createdAt DateTime @default(now())
 
-  Likes        Likes[]
-  Contacts     Contact[]
+  Likes          Likes[]
+  Contacts       Contact[]
   Accommodations Accommodation[]
-  Ratings      Rating[]
+  Ratings        Rating[]
 }
 
 model Likes {
-  id             Int           @id @default(autoincrement())
-  like           Boolean
-  userId         String
+  id              Int           @id @default(autoincrement())
+  like            Boolean
+  userId          String
   accommodationId String
-  user           User          @relation(fields: [userId], references: [id])
-  accommodation  Accommodation @relation(fields: [accommodationId], references: [id])
+  user            User          @relation(fields: [userId], references: [id])
+  accommodation   Accommodation @relation(fields: [accommodationId], references: [id])
 }
 
 model Contact {
@@ -59,6 +59,7 @@ model Contact {
 model Accommodation {
   id             String      @id @default(uuid())
   img            Json?
+  house_img      String?
   isActive       Boolean     @default(true)
   listing_type   ListingType
   title          String
@@ -97,10 +98,10 @@ model Rating {
 }
 
 model Category {
-  id             Int             @id @default(autoincrement())
-  name           String
-  img            String
-  icon_img       String
+  id       Int    @id @default(autoincrement())
+  name     String
+  img      String
+  icon_img String
 
   Accommodations Accommodation[]
 }
