@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CategoryService } from './category.service';
 import { CategoryDTO } from './interfaces/category.dto';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
@@ -14,5 +14,13 @@ export class CategoryController {
   @ApiResponse({ status: 400, description: 'Yaroqsiz ma\'lumot.' })
   createCat(@Body() payload: CategoryDTO) {
     return this.categoryService.create(payload);
+  }
+
+  @Get('all')
+  @ApiOperation({ summary: 'Categorilar' })
+  @ApiResponse({ status: 200, description: 'Kategoriya muvaffaqiyatli oqildi' })
+  @ApiResponse({ status: 400, description: 'Yaroqsiz ma\'lumot.' })
+  GetCat() {
+    return this.categoryService.getall();
   }
 }

@@ -1,20 +1,41 @@
-import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put, UseInterceptors, UnsupportedMediaTypeException, UploadedFile } from '@nestjs/common';
 import { AccommadationService } from './accommadation.service';
 import { CreateAccommodationDto } from './interfaces/create-accommadation.dto';
 import { UpdateAccommadationDto } from './interfaces/update-accommadation.dto';
-import { ApiTags, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
-
+import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiConsumes } from '@nestjs/swagger';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { v4 as uuidv4 } from 'uuid';
+import { extname } from 'path';
 @ApiTags('Accommodation')
 @Controller('accommodation')
 export class AccommadationController {
-  constructor(private readonly accommadationService: AccommadationService) {}
+  constructor(private readonly accommadationService: AccommadationService) { }
 
   @Post('create')
   @ApiOperation({ summary: 'Yangi uy-joy (accommodation) yaratish' })
   @ApiResponse({ status: 201, description: 'Accommodation muvaffaqiyatli yaratildi.' })
   @ApiResponse({ status: 400, description: 'Yaroqsiz maʼlumot.' })
-  create(@Body() createAccommadation: CreateAccommodationDto) {
-    return this.accommadationService.create(createAccommadation);
+  @ApiConsumes("multipart/form-data")
+  @UseInterceptors(FileInterceptor('house_img', {
+    storage: diskStorage({
+      destination: "./uploads/house_images",
+      filename: (req, file, cb) => {
+        let posterName = uuidv4() + "_" + extname(file.originalname)
+        cb(null, posterName)
+      }
+    }),
+    fileFilter: (req, file, callback) => {
+      let allowed: string[] = ['image/jpeg', 'image/jpg', 'image/png']
+      if (!allowed.includes(file.mimetype)) {
+        callback(new UnsupportedMediaTypeException("File tpe must be .jpg | .jpeg | .png "), false)
+
+      }
+      callback(null, true)
+    }
+  }))
+  create(@Body() createAccommadation: CreateAccommodationDto, @UploadedFile() house_img: Express.Multer.File) {
+    return this.accommadationService.create(createAccommadation, house_img);
   }
 
   @Get('get_all')

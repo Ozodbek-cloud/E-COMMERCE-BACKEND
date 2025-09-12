@@ -63,6 +63,7 @@ model Accommodation {
   isActive       Boolean     @default(true)
   listing_type   ListingType
   title          String
+  message        String?
   address        String?
   features       Json?
   price          Float

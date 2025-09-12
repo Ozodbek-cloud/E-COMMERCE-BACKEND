@@ -20,4 +20,16 @@ export class CategoryService {
       throw new InternalServerErrorException(error.message);
     }
   }
+  async getall() {
+    try {
+      let data = await this.prismaService.category.findMany({include: {Accommodations: true} })
+      return {
+        success: true,
+        data: data,
+        message: 'Successfully Getted',
+      };
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
+  }
 }

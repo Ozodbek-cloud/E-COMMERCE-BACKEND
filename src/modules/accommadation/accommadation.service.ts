@@ -7,10 +7,11 @@ import { PrismaService } from '../../core/prisma/prisma.service';
 export class AccommadationService {
   constructor(private prismaService: PrismaService) {}
 
-  async create(createAccommadation: CreateAccommodationDto) {
+  async create(createAccommadation: CreateAccommodationDto, house_img: Express.Multer.File) {
     try {
+      const house_img_original = house_img.originalname
       let data = await this.prismaService.accommodation.create({
-        data: createAccommadation,
+        data: {...createAccommadation, house_img: house_img_original},
       });
       return {
         success: true,
@@ -24,7 +25,7 @@ export class AccommadationService {
 
   async findAll() {
     try {
-      let data = await this.prismaService.accommodation.findMany();
+      let data = await this.prismaService.accommodation.findMany({include: {user: true, category:true}});
       return {
         success: true,
         message: 'Successfully Got All Accommodations',
