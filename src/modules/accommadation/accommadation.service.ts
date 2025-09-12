@@ -15,7 +15,6 @@ export class AccommadationService {
   findOne(id: number) {
     return `This action returns a #${id} accommadation`;
   }
-
   update(id: number, updateAccommadationDto: UpdateAccommadationDto) {
     return `This action updates a #${id} accommadation`;
   }
