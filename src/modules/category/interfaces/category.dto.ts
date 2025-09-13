@@ -14,6 +14,7 @@ export class CategoryDTO {
   @ApiPropertyOptional({
     example: 'https://example.com/images/house.png',
     description: 'Kategoriya rasmi (ixtiyoriy)',
+    format: "binary"
   })
   @IsOptional()
   @IsString()
@@ -22,6 +23,7 @@ export class CategoryDTO {
   @ApiPropertyOptional({
     example: 'https://example.com/icons/house.svg',
     description: 'Kategoriya ikonkasi (ixtiyoriy)',
+    format: "binary"
   })
   @IsOptional()
   @IsString()

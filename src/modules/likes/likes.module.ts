@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { LikesService } from './likes.service';
 import { LikesController } from './likes.controller';
-import { PrismaService } from 'src/core/prisma/prisma.service';
+import { PrismaService } from '../../core/prisma/prisma.service';
 
 @Module({
   controllers: [LikesController],

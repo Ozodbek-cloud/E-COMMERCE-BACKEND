@@ -7,11 +7,27 @@ import { UserModule } from './modules/user/user.module';
 import { CategoryModule } from './modules/category/category.module';
 import { AccommadationModule } from './modules/accommadation/accommadation.module';
 import { LikesModule } from './modules/likes/likes.module';
-
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
+import { MulterModule } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { v4 as uuidv4 } from 'uuid';
 
 
 @Module({
-  imports: [RedisModule, MailModule, PrismaModule, AuthModule, UserModule, CategoryModule, AccommadationModule, LikesModule],
-
+  imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(process.cwd(), 'uploads', 'house_images'),
+      serveRoot: '/uploads',
+    }),
+    RedisModule,
+    MailModule,
+    PrismaModule,
+    AuthModule,
+    UserModule,
+    CategoryModule,
+    AccommadationModule,
+    LikesModule,
+  ],
 })
-export class AppModule {}
+export class AppModule { }

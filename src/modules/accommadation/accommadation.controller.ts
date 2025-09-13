@@ -21,7 +21,7 @@ export class AccommadationController {
     storage: diskStorage({
       destination: "./uploads/house_images",
       filename: (req, file, cb) => {
-        let posterName = uuidv4() + "_" + extname(file.originalname)
+        let posterName = file.originalname
         cb(null, posterName)
       }
     }),
