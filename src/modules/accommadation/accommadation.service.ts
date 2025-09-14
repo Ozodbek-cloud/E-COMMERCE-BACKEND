@@ -5,27 +5,39 @@ import { PrismaService } from '../../core/prisma/prisma.service';
 
 @Injectable()
 export class AccommadationService {
-  constructor(private prismaService: PrismaService) {}
+  constructor(private prismaService: PrismaService) { }
 
-  async create(createAccommadation: CreateAccommodationDto, house_img: Express.Multer.File) {
+  async create(
+    createAccommadation: CreateAccommodationDto, files: { house_img?: Express.Multer.File[]; img?: Express.Multer.File[]; documents?: Express.Multer.File[]; },) {
     try {
-      const house_img_original = house_img.originalname
-      let data = await this.prismaService.accommodation.create({
-        data: {...createAccommadation, house_img: house_img_original},
+      const houseImgName = files?.house_img?.[0]?.originalname;
+
+      const imgNames = files?.img?.map((f) => f.originalname) ?? [];
+      const docNames = files?.documents?.map((f) => f.originalname) ?? [];
+
+      const data = await this.prismaService.accommodation.create({
+        data: {
+          ...createAccommadation,
+          house_img: houseImgName,
+          img: imgNames.length ? imgNames : undefined,
+          documents: docNames.length ? docNames : undefined,
+        },
       });
+
       return {
         success: true,
         message: 'Successfully Created Accommodation',
-        data: data,
+        data,
       };
     } catch (error) {
       throw new InternalServerErrorException(error.message);
     }
   }
 
+
   async findAll() {
     try {
-      let data = await this.prismaService.accommodation.findMany({include: {user: true, category:true}});
+      let data = await this.prismaService.accommodation.findMany({ include: { user: true, category: true } });
       return {
         success: true,
         message: 'Successfully Got All Accommodations',

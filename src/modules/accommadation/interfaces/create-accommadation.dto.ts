@@ -13,7 +13,7 @@ export class CreateAccommodationDto {
   @IsOptional()
   message?: string;
 
-  @ApiPropertyOptional({ example: 'example.png', description: 'Img Of House', format: "binary"})
+  @ApiPropertyOptional({ example: 'example.png', description: 'Img Of House', format: "binary" })
   @IsOptional()
   @IsString()
   house_img?: string;
@@ -27,7 +27,7 @@ export class CreateAccommodationDto {
   @IsString()
   address?: string;
 
-  @ApiPropertyOptional({ example: 500, description: 'Narxi (USD yoki boshqa valyutada)' })
+  @ApiProperty({ example: 500, description: 'Narxi (USD yoki boshqa valyutada)' })
   @Type(() => Number)
   @IsNumber()
   price: number;
@@ -76,12 +76,38 @@ export class CreateAccommodationDto {
   @IsBoolean()
   isActive: boolean;
 
-  @ApiPropertyOptional({ example: 'user-uuid-123', description: 'Foydalanuvchi ID-si (bog‘lanadi)' })
+  @ApiProperty({ example: 'user-uuid-123', description: 'Foydalanuvchi ID-si (bog‘lanadi)' })
   @IsString()
   user_id: string;
 
-  @ApiPropertyOptional({ example: 2, description: 'Kategoriya ID-si (bog‘lanadi)' })
+  @ApiProperty({ example: 2, description: 'Kategoriya ID-si (bog‘lanadi)' })
   @Type(() => Number)
   @IsNumber()
   category_id: number;
+
+
+  @ApiPropertyOptional({
+    type: 'string',
+    format: 'binary',
+    isArray: true,
+    description: 'Multiple Images of House',
+  })
+  @IsOptional()
+  img?: any;
+
+
+  @ApiPropertyOptional({ example: { beds: 3, size: '120m2', parking: 1, baths: 3 }, description: 'Qo‘shimcha xususiyatlar (features) JSON formatda' })
+  @IsOptional()
+  features?: any;
+
+
+  @ApiPropertyOptional({
+    type: 'string',
+    format: 'binary',
+    description: 'Multiple Documents of House',
+  })
+  @IsOptional()
+  documents?: any;
+
+
 }

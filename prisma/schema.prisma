@@ -39,8 +39,9 @@ model Likes {
   like            Boolean
   userId          String
   accommodationId String
-  user            User          @relation(fields: [userId], references: [id])
-  accommodation   Accommodation @relation(fields: [accommodationId], references: [id])
+
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accommodation   Accommodation @relation(fields: [accommodationId], references: [id], onDelete: Cascade)
 }
 
 model Contact {
@@ -52,13 +53,14 @@ model Contact {
   message         String
   userId          String
   accommodationId String
-  user            User          @relation(fields: [userId], references: [id])
-  accommodation   Accommodation @relation(fields: [accommodationId], references: [id])
+
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accommodation   Accommodation @relation(fields: [accommodationId], references: [id], onDelete: Cascade)
 }
 
 model Accommodation {
   id             String      @id @default(uuid())
-  img            Json?
+  img            String[]
   house_img      String?
   isActive       Boolean     @default(true)
   listing_type   ListingType
@@ -70,7 +72,7 @@ model Accommodation {
   discount       Float?
   build_year     Int?
   description    String?
-  documents      Json?
+  documents      String[]
   map_url        String?
   latitude       Float?
   longitude      Float?
@@ -79,8 +81,8 @@ model Accommodation {
   user_id        String
   category_id    Int
 
-  user     User     @relation(fields: [user_id], references: [id])
-  category Category @relation(fields: [category_id], references: [id])
+  user     User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [category_id], references: [id], onDelete: Cascade)
 
   Likes    Likes[]
   Contacts Contact[]
@@ -94,12 +96,13 @@ model Rating {
   communicate     Float
   userId          String
   accommodationId String
-  user            User          @relation(fields: [userId], references: [id])
-  accommodation   Accommodation @relation(fields: [accommodationId], references: [id])
+
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accommodation   Accommodation @relation(fields: [accommodationId], references: [id], onDelete: Cascade)
 }
 
 model Category {
-  id       Int    @id @default(autoincrement())
+  id       Int     @id @default(autoincrement())
   name     String
   img      String?
   icon_img String?
