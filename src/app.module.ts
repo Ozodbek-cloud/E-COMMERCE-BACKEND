@@ -16,10 +16,12 @@ import { v4 as uuidv4 } from 'uuid';
 
 @Module({
   imports: [
-    ServeStaticModule.forRoot({
-      rootPath: join(process.cwd(), 'uploads', 'house_images'),
-      serveRoot: '/uploads',
-    }),
+    ServeStaticModule.forRoot(
+      {
+        rootPath: join(process.cwd(), 'uploads',),
+        serveRoot: '/uploads',
+      },
+    ),
     RedisModule,
     MailModule,
     PrismaModule,

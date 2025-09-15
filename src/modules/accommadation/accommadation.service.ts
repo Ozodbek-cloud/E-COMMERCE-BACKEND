@@ -37,7 +37,7 @@ export class AccommadationService {
 
   async findAll() {
     try {
-      let data = await this.prismaService.accommodation.findMany({ include: { user: true, category: true } });
+      let data = await this.prismaService.accommodation.findMany({ include: { user: true, category: true, Likes: true } });
       return {
         success: true,
         message: 'Successfully Got All Accommodations',

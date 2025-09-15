@@ -21,7 +21,7 @@ export class LikesService {
 
   async findAll() {
     try {
-      let data = await this.prismaService.likes.findMany({include: {accommodation: {select: {title: true, price: true, house_img:true, user_id: true}}, user: true}});
+      let data = await this.prismaService.likes.findMany({include: {accommodation: true, user: true}});
       return {
         success: true,
         message: 'Successfully Retrieved Likes',
