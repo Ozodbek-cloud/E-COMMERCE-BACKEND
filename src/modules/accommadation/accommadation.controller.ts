@@ -86,6 +86,11 @@ export class AccommadationController {
     return this.accommadationService.findAll();
   }
 
+  @Get(':id/one')
+  get(@Param('id') id: string) {
+    return this.accommadationService.getId(id);
+  }
+
   @Put(':id/update')
   @ApiOperation({ summary: 'Uy-joyni yangilash' })
   @ApiParam({ name: 'id', type: String, description: 'Yangilanadigan accommodation ID-si' })

@@ -3,6 +3,7 @@ import { UserService } from './user.service';
 import { UpdateUserDto } from './interfaces/updated';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
+import { ApiConsumes } from '@nestjs/swagger';
 
 @Controller('user')
 export class UserController {
@@ -14,6 +15,7 @@ export class UserController {
     }
 
     @Put(":id/update")
+    @ApiConsumes('multipart/form-data')
     @UseInterceptors(FileInterceptor('avatar', {
         storage: diskStorage({
             destination: "./uploads/avatar",
@@ -22,6 +24,7 @@ export class UserController {
                 cb(null, posterName)
             }
         }),
+
         fileFilter: (req, file, callback) => {
             let allowed: string[] = ['image/jpeg', 'image/jpg', 'image/png']
             if (!allowed.includes(file.mimetype)) {

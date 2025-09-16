@@ -47,7 +47,28 @@ export class AccommadationService {
       throw new InternalServerErrorException(error.message);
     }
   }
+  async getId(id: string) {
+    let data = await this.prismaService.accommodation.findFirst({
+      where: {
+        id: id
+      },
+      include: {
+        Contacts: {
+          include: {
+            user: true
+          }
+        },
+      }
+    })
+    if (!data) throw new NotFoundException(`${id} is  not found`)
 
+    return {
+      data: data,
+      success: true,
+      message: "Successfully Getted One Contact"
+    }
+
+  }
   async update(id: string, updateAccommadation: UpdateAccommadationDto) {
     try {
       let data = await this.prismaService.accommodation.update({

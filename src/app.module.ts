@@ -9,9 +9,7 @@ import { AccommadationModule } from './modules/accommadation/accommadation.modul
 import { LikesModule } from './modules/likes/likes.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
-import { MulterModule } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { v4 as uuidv4 } from 'uuid';
+import { ContactsModule } from './modules/contacts/contacts.module';
 
 
 @Module({
@@ -30,6 +28,8 @@ import { v4 as uuidv4 } from 'uuid';
     CategoryModule,
     AccommadationModule,
     LikesModule,
+    ContactsModule,
   ],
+  
 })
 export class AppModule { }

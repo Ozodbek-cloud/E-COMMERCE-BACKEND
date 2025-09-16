@@ -3,31 +3,27 @@ import { Roles } from '@prisma/client';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UpdateUserDto {
-    @ApiProperty({})
+    @ApiProperty({required:false})
     @IsOptional()
     @IsString()
     firstName?: string;
 
-    @ApiProperty({})
+    @ApiProperty({required:false})
     @IsOptional()
     @IsString()
     lastName?: string;
 
-    @ApiProperty({})
+    @ApiProperty({required:false})
     @IsOptional()
     @IsEmail()
     email?: string;
 
-    @ApiProperty({})
-    @IsOptional()
-    role?: Roles;
-
-    @ApiProperty({})
+    @ApiProperty({required:false})
     @IsOptional()
     @IsString()
     password?: string;
 
-    @ApiProperty({format: "binary"})
+    @ApiProperty({required:false,format: "binary"})
     @IsOptional()
     @IsString()
     avatar?: string;
