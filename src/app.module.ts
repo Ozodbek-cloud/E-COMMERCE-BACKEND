@@ -10,7 +10,8 @@ import { LikesModule } from './modules/likes/likes.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { ContactsModule } from './modules/contacts/contacts.module';
-
+import { AloqaController } from './modules/aloqa/aloqa.controller';
+import { AloqaModule } from './modules/aloqa/aloqa.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { ContactsModule } from './modules/contacts/contacts.module';
     AccommadationModule,
     LikesModule,
     ContactsModule,
+    AloqaModule,
   ],
   
 })

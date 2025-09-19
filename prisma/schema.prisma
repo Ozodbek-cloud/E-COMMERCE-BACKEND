@@ -47,8 +47,6 @@ model Likes {
 model Contact {
   id              String   @id @default(uuid())
   date            DateTime @default(now())
-  time            String
-  phone           String
   email           String
   message         String
   userId          String
@@ -58,12 +56,12 @@ model Contact {
   accommodation Accommodation @relation(fields: [accommodationId], references: [id], onDelete: Cascade)
 }
 
-model MainContact {
-  id       Int    @id @default(autoincrement())
-  fullName String
-  phone    String
-  message  String
-}
+  model MainContact {
+    id       Int    @id @default(autoincrement())
+    fullName String
+    phone    String
+    message  String
+  }
 
 model Accommodation {
   id             String      @id @default(uuid())
