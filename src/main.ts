@@ -14,7 +14,7 @@ async function bootstrap() {
   );
 
   app.enableCors({
-    origin: ["http://localhost:5173", "https://e-commerce.nasriddinov.uz", "https://e-commercefegee.netlify.app/"],
+    origin: ["http://localhost:5173", "https://e-commerce.nasriddinov.uz", "https://e-commercefegee.netlify.app/", "https://real-project-full-stack.netlify.app/"],
     credentials: true,
   });
   await setupSwagger(app)
